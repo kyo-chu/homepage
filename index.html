@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究開発推進部</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00f0ff;
+        }
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+        nav ul li {
+            margin-left: 20px;
+        }
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #00f0ff;
+        }
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(45deg, #000000, #1a1a1a);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            z-index: 1;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #00f0ff;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            z-index: 1;
+        }
+		.cta-button {
+		    display: inline-block;
+		    padding: 12px 24px;
+		    background-color: #00f0ff;
+		    color: #000000;
+		    text-decoration: none;
+		    border-radius: 5px;
+		    font-weight: bold;
+		    transition: background-color 0.3s ease;
+		    z-index: 10; /* z-indexを高く設定 */
+		    position: relative; /* ボタンの配置を明示的に設定 */
+		}
+        .services {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .services h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .service-item {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .service-item:hover {
+            transform: translateY(-10px);
+        }
+        .service-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00f0ff;
+        }
+        .animation-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            background-color: #00f0ff;
+            border-radius: 50%;
+        }
+        .line {
+            position: absolute;
+            background-color: #00f0ff;
+            transform-origin: 0% 50%;
+        }
+		.team {
+		    padding: 60px 0;
+		    text-align: center;
+		}
+
+		.team h2 {
+		    font-size: 2.5rem;
+		    margin-bottom: 40px;
+		    color: #00f0ff;
+		}
+
+		.team-grid {
+		    display: flex;
+		    justify-content: center;
+		    gap: 10px; /* 各メンバー間の隙間を調整 */
+		}
+
+		.team-member {
+		    background-color: #1a1a1a;
+		    border-radius: 10px;
+		    transition: transform 0.3s ease;
+		    background-size: cover;
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    color: white;
+		    height: 300px; /* 必要に応じて高さを調整 */
+		    width: 150px; /* 必要に応じて幅を調整 */
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    justify-content: flex-end;
+		    text-align: center;
+		    padding: 10px;
+		}
+
+		.team-member h3, .team-member p {
+		    margin: 0;
+		    padding: 5px;
+		    background-color: rgba(0, 0, 0, 0.6);
+		    width: 100%;
+		}
+
+		/* 各メンバーに対して固有の背景画像を設定 */
+		.member-1 {
+		    background-image: url('imgs/001.webp'); /* 画像のパスを正しく設定してください */
+		}
+
+		.member-2 {
+		    background-image: url('imgs/002.webp'); /* 画像のパスを正しく設定してください */
+		}
+
+		.member-3 {
+		    background-image: url('imgs/003.webp'); /* 画像のパスを正しく設定してください */
+		}
+
+		.member-4 {
+		    background-image: url('imgs/004.webp'); /* 画像のパスを正しく設定してください */
+		}
+
+		.member-5 {
+		    background-image: url('imgs/005.webp'); /* 画像のパスを正しく設定してください */
+		}
+
+		.member-6 {
+		    background-image: url('imgs/006.webp'); /* 画像のパスを正しく設定してください */
+		}
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        .team-member img {
+            width: 150px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #00f0ff;
+        }
+        .team-member p {
+            font-size: 1rem;
+            color: #ffffff;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+        .popup-content h2 {
+            margin-top: 0;
+            color: #00f0ff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .popup-content input,
+        .popup-content textarea {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+        .popup-content button {
+            background-color: #00f0ff;
+            color: #000000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .popup-content button:hover {
+            background-color: #00d0e0;
+        }
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #00f0ff;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">研究開発推進部</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">ホーム</a></li>
+                    <li><a href="#services">サービス</a></li>
+                    <li><a href="#team">メンバー紹介</a></li>
+                    <li><a href="#contact" class="contact-link">お問い合わせ</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero" id="home">
+            <div class="animation-container"></div>
+            <div>
+                <h1>AI革命を<br>あなたのビジネスに</h1>
+                <p>最先端のAIソリューションで、ビジネスの未来を創造します</p>
+                <a href="#" class="cta-button" id="free-consultation">無料相談を予約</a>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <h2>サービス</h2>
+            <div class="service-grid">
+                <div class="service-item">
+                    <h3>AI戦略コンサルティング</h3>
+                    <p>ビジネスに最適なAI導入戦略を提案します</p>
+                </div>
+                <div class="service-item">
+                    <h3>機械学習モデル開発</h3>
+                    <p>高精度な予測モデルで意思決定をサポート</p>
+                </div>
+                <div class="service-item">
+                    <h3>自然言語処理ソリューション</h3>
+                    <p>テキストデータから価値ある洞察を抽出</p>
+                </div>
+                <div class="service-item">
+                    <h3>AI導入支援</h3>
+                    <p>スムーズなAI導入をトータルサポート</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="team" id="team">
+            <h2>メンバー紹介</h2>
+            <div class="team-grid">
+                <div class="team-member member-1">
+                    <h3>山田太郎</h3>
+                    <p>リサーチャー</p>
+                </div>
+                <div class="team-member member-2">
+                    <h3>佐藤花子</h3>
+                    <p>リサーチャー</p>
+                </div>
+                <div class="team-member member-3">
+                    <h3>佐藤花子</h3>
+                    <p>サイエンティスト</p>
+                </div>
+                <div class="team-member member-4">
+                    <h3>佐藤花子</h3>
+                    <p>サイエンティスト</p>
+                </div>
+                <div class="team-member member-5">
+                    <h3>鈴木一郎</h3>
+                    <p>サイエンティスト</p>
+                </div>
+                <div class="team-member member-6">
+                    <h3>高橋みどり</h3>
+                    <p>マネージャー</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; Hitachi Hi-System21 Co., Ltd. 2000, 2024. All rights reserved.</p>
+    </footer>
+
+    <div class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h2>お問い合わせ</h2>
+            <form id="contact-form">
+                <input type="text" placeholder="お名前" required>
+                <input type="email" placeholder="メールアドレス" required>
+                <textarea placeholder="メッセージ" required rows="4"></textarea>
+                <button type="submit">送信</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.animation-container');
+        const particles = [];
+        const numParticles = 50; // 3倍に増やしました
+        const maxConnections = 4;
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            container.appendChild(particle);
+
+            const size = Math.random() * 3 + 1;
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+
+            gsap.set(particle, {
+                x: x,
+                y: y,
+                width: size,
+                height: size
+            });
+
+            return { element: particle, x, y, connections: 0 };
+        }
+
+        function createLine(x1, y1, x2, y2) {
+            const line = document.createElement('div');
+            line.classList.add('line');
+            container.appendChild(line);
+
+            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+            gsap.set(line, {
+                x: x1,
+                y: y1,
+                width: length,
+                height: 1,
+                rotation: angle,
+                opacity: 0
+            });
+
+            return line;
+        }
+
+        function animateParticle(particle) {
+            gsap.to(particle.element, {
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                duration: Math.random() * 10 + 5,
+                ease: "none",
+                onComplete: () => animateParticle(particle),
+                onUpdate: () => {
+                    particle.x = gsap.getProperty(particle.element, "x");
+                    particle.y = gsap.getProperty(particle.element, "y");
+                }
+            });
+        }
+
+        function connectParticles() {
+            const lines = [];
+
+            for (let i = 0; i < particles.length; i++) {
+                const particle1 = particles[i];
+                
+                for (let j = i + 1; j < particles.length; j++) {
+                    const particle2 = particles[j];
+                    const distance = Math.sqrt(Math.pow(particle2.x - particle1.x, 2) + Math.pow(particle2.y - particle1.y, 2));
+
+                    if (distance < 100 && particle1.connections < maxConnections && particle2.connections < maxConnections) {
+                        const line = createLine(particle1.x, particle1.y, particle2.x, particle2.y);
+                        lines.push(line);
+                        particle1.connections++;
+                        particle2.connections++;
+                    }
+                }
+            }
+
+            gsap.to(lines, {
+                opacity: 0.5,
+                duration: 0.5,
+                onComplete: () => {
+                    gsap.to(lines, {
+                        opacity: 0,
+                        duration: 0.5,
+                        onComplete: () => {
+                            lines.forEach(line => container.removeChild(line));
+                            particles.forEach(particle => particle.connections = 0);
+                        }
+                    });
+                }
+            });
+        }
+
+        for (let i = 0; i < numParticles; i++) {
+            const particle = createParticle();
+            particles.push(particle);
+            animateParticle(particle);
+        }
+
+        setInterval(connectParticles, 2000);
+
+        // ポップアップ関連の機能
+        const popupOverlay = document.querySelector('.popup-overlay');
+        const closePopup = document.querySelector('.close-popup');
+        const contactLink = document.querySelector('.contact-link');
+        const freeConsultation = document.getElementById('free-consultation');
+
+        function showPopup() {
+            popupOverlay.style.display = 'block';
+        }
+
+        function hidePopup() {
+            popupOverlay.style.display = 'none';
+        }
+
+        contactLink.addEventListener('click', showPopup);
+        freeConsultation.addEventListener('click', showPopup);
+        closePopup.addEventListener('click', hidePopup);
+
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('お問い合わせありがとうございます。担当者より連絡させていただきます。');
+            hidePopup();
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>
